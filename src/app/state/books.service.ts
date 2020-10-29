@@ -8,15 +8,18 @@ import { tap } from 'rxjs/operators';
 export class BooksService {
 
   constructor(
-    private booksStore: BooksStore, 
+    private booksStore: BooksStore,
     private bookStoreApiService: BookStoreApiService
   ) { }
 
   findAll() {
+    this.booksStore.setLoading(true);
+
     return this.bookStoreApiService.findAll().pipe(
-      tap(books => this.booksStore.set(books))
+      tap(books => {
+        this.booksStore.set(books);
+        this.booksStore.setLoading(false);
+      }),
     )
   }
-
-
 }

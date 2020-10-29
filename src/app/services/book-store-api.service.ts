@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { CreateBookDto } from '../dto/create-book.dto';
 import { UpdateBookDto } from '../dto/update-book.dto';
 import { Book } from '../entities/book.entity';
+import { delay } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BookStoreApiService {
   private endpoint = 'https://nest-book-store.herokuapp.com/books';
 
-  constructor(private http: HttpClient) { 
-    
+  constructor(private http: HttpClient) {
+
   }
 
   create(createBookDto: CreateBookDto) {
@@ -17,7 +18,9 @@ export class BookStoreApiService {
   }
 
   findAll() {
-    return this.http.get<Book[]>(this.endpoint);
+    return this.http.get<Book[]>(this.endpoint).pipe(
+        delay(3000)
+    );
   }
 
   findOne(id: number) {

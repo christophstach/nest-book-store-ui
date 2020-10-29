@@ -147,6 +147,15 @@
   dependencies:
     tslib "^2.0.0"
 
+"@angular/cdk@^10.2.6":
+  version "10.2.6"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-10.2.6.tgz#6130b261f7cdc5a130b608c711d1ea7139b11a06"
+  integrity sha512-7bvls1XiLejPirVC4ocdtmc/fgfPSG0BNwUvarl34g6ybj8mR+WDagMWnZMt0VXsnago2ImhGdD7YB9oJ3CpBQ==
+  dependencies:
+    tslib "^2.0.0"
+  optionalDependencies:
+    parse5 "^5.0.0"
+
 "@angular/cli@~10.2.0":
   version "10.2.0"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-10.2.0.tgz#b0b465120eb9a39e5efd030bf80c023c630960ed"
@@ -6342,6 +6351,18 @@ prepend-http@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
+
+primeicons@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-4.0.0.tgz#a3594b3af213dcf8c4c3d6fc99eea05b7c92f57c"
+  integrity sha512-JQBIswGSItn8I0Pq21RchENpKJxSi1MjfBDfggMQpXtoKNKblJoHmol/7tCV3CAV2Dlb94ht8TD8qdIAW01pGg==
+
+primeng@^10.0.3:
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-10.0.3.tgz#e9d0ea425b9c5023bc9eef2cb014941939d0c35e"
+  integrity sha512-Nsiwpmy3RlFPBlxabdzeAYxFn4fXEyZjj7iAi1X5J4RRGD7NoB67+NbnOInE1rXTnNVHYxCca91OvaNiHSWWrg==
+  dependencies:
+    tslib "^2.0.0"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

@@ -4,6 +4,11 @@ import { AppComponent } from './components/app/app.component';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { HttpClientModule } from '@angular/common/http';
 
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
+
 
 @NgModule({
   declarations: [
@@ -12,7 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    ReactiveComponentModule
+    ReactiveComponentModule,
+
+    CardModule,
+    TableModule,
+    ProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
