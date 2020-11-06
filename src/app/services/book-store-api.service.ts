@@ -18,9 +18,7 @@ export class BookStoreApiService {
   }
 
   findAll() {
-    return this.http.get<Book[]>(this.endpoint).pipe(
-        delay(3000)
-    );
+    return this.http.get<Book[]>(this.endpoint);
   }
 
   findOne(id: number) {
