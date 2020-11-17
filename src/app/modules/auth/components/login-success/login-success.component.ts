@@ -28,6 +28,10 @@ export class LoginSuccessComponent implements OnInit, OnDestroy {
         if(jwt) {
             this.authService.persistJwt(jwt);
             this.router.navigate(['auth/login/success']);
+        } else {
+            setTimeout(() => {
+                this.router.navigate(['/'])
+            }, 2500);
         }
       }),
     ).subscribe();

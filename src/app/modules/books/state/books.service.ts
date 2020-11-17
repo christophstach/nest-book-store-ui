@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BookStoreApiService } from '../services/book-store-api.service';
 import { BooksStore } from './books.store';
 import { tap } from 'rxjs/operators';
+import { Book } from '../entities/book.entity';
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,5 +22,9 @@ export class BooksService {
         this.booksStore.setLoading(false);
       }),
     )
+  }
+
+  addToCart(book: Book) {
+
   }
 }

@@ -1,5 +1,5 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
-    <span>Bookstore</span>
+    <span><a routerLink="/" mat-button>Book store</a></span>
     <span class="spacer"></span>
     <ng-container>
         <ng-container *ngIf="!(jwtData$ | ngrxPush); else profile">
@@ -17,13 +17,13 @@
         <ng-template #profile>
             <ng-container *ngIf="jwtData$ | ngrxPush as jwtData">
                 <button class="profile-button" mat-raised-button color="primary">
-                    {{jwtData?.firstName}} {{jwtData?.lastName}}
-
                     <img
                             class="rounded profile-picture"
                             [src]="jwtData?.picture"
                             alt="User profile"
                     />
+
+                    {{jwtData?.firstName}} {{jwtData?.lastName}}
                 </button>
                 <button (click)="logout()" class="logout-button" mat-raised-button color="warn">Logout</button>
             </ng-container>
