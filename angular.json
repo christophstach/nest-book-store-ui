@@ -54,6 +54,7 @@
             "assets": [
               { "glob": "**/*", "input": "./assets/", "output": "./assets/" },
               { "glob": "favicon.ico", "input": "./", "output": "./" },
+              { "glob":  "_redirects", "input": "./", "output": "./" },
               { "glob": "mdi.svg", "input": "./node_modules/@mdi/angular-material", "output": "./assets" }
             ],
             "styles": [
