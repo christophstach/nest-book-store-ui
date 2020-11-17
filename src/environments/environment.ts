@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  googleAuthUrl: 'http://localhost:3333/auth/google',
-  tokenLoginUrl: 'http://localhost:3333/auth/login/token'
+  googleAuthUrl: 'http://localhost:3333/auth/google'
 };
 
 /*
