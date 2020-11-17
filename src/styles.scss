@@ -40,3 +40,35 @@ table {
 .rounded {
     border-radius: 50%;
 }
+
+
+
+.profile-button  {
+    .mat-button-wrapper {
+        display: flex;
+        align-content: center;
+        align-items: center;
+
+        .profile-picture {
+            width: 24px;
+            height: 24px;
+            display: block;
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+.login-button  {
+    .mat-button-wrapper {
+        display: flex;
+        align-content: center;
+        align-items: center;
+
+        .login-picture {
+            width: 24px;
+            height: 24px;
+            display: block;
+            margin-right: 0.5rem;
+        }
+    }
+}

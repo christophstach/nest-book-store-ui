@@ -2,17 +2,23 @@
     <span>Bookstore</span>
     <span class="spacer"></span>
     <ng-container *ngrxLet="jwtData$; let jwtData">
-        <a *ngIf="!jwtData?.googleId; else profile" [href]="googleAuthUrl" mat-raised-button color="primary">
-            <mat-icon svgIcon="google"></mat-icon>
+        <a *ngIf="!jwtData?.googleId; else profile" [href]="googleAuthUrl" class="login-button" mat-raised-button color="primary">
+            <img
+                    class="rounded login-picture"
+                    src="assets/g-logo.png"
+                    alt="Login with google"
+            />
+
             Login
         </a>
         <ng-template #profile>
-            <a href="#">
+            <a href="#" class="profile-button" mat-raised-button color="primary">
+                {{jwtData?.firstName}} {{jwtData?.lastName}}
+
                 <img
-                        matRipple
-                        class="rounded profile-picture"
-                        [src]="jwtData?.picture"
-                        alt="User profile"
+                    class="rounded profile-picture"
+                    [src]="jwtData?.picture"
+                    alt="User profile"
                 />
             </a>
 
