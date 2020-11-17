@@ -7,7 +7,7 @@ import { delay } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BookStoreApiService {
-  private endpoint = 'https://nest-book-store.herokuapp.com/books';
+  private endpoint = 'https://nest-book-store-inventory.herokuapp.com/books';
 
   constructor(private http: HttpClient) {
 

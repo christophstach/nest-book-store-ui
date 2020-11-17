@@ -20,7 +20,6 @@ export class BooksListComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('test');
     this.booksService.findAll().subscribe();
   }
 }

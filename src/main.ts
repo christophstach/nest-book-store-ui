@@ -13,5 +13,6 @@ if (environment.production) {
 const storage = persistState();
 const providers = [{ provide: 'persistStorage', useValue: storage }];
 
-platformBrowserDynamic(providers).bootstrapModule(AppModule, { ngZone: 'zone.js' })
+platformBrowserDynamic(providers)
+  .bootstrapModule(AppModule, { ngZone: 'zone.js' })
   .catch(err => console.error(err));

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { map, mapTo, switchMapTo, tap } from 'rxjs/operators';
-import jwtDecode from 'jwt-decode';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../../state/auth.service';
 import { AuthQuery } from '../../state/auth.query';
 import { JwtData } from '../../state/auth.store';
@@ -13,30 +12,34 @@ import { JwtData } from '../../state/auth.store';
   styleUrls: ['./login-success.component.scss']
 })
 export class LoginSuccessComponent implements OnInit, OnDestroy {
-  jwtData$: Observable<JwtData>
+    subscription: Subscription;
+  jwtData$: Observable<JwtData | null>
 
-  constructor(route: ActivatedRoute, private authService: AuthService, private authQuery: AuthQuery) {
-    this.jwtData$ = route.paramMap.pipe(
-      map(paramMap => {
+  constructor(
+      private route: ActivatedRoute,
+      private router: Router,
+      private authService: AuthService,
+      private authQuery: AuthQuery
+  ) {
+    this.subscription = this.route.paramMap.pipe(
+      tap((paramMap) => {
         const jwt = paramMap.get('jwt');
 
         if(jwt) {
-          return jwt;
-        } else {
-          throw new Error('No JWT provided');
+            this.authService.persistJwt(jwt);
+            this.router.navigate(['auth/login/success']);
         }
       }),
-      tap(jwt => this.authService.persistJwt(jwt)),
-      switchMapTo(this.authQuery.jwtData$)
-    );
+    ).subscribe();
+
+    this.jwtData$ = this.authQuery.jwtData$;
   }
 
   ngOnInit(): void {
+
   }
 
   ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
-
-
-
 }

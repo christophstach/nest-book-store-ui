@@ -1,30 +1,35 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
     <span>Bookstore</span>
     <span class="spacer"></span>
-    <ng-container *ngrxLet="jwtData$; let jwtData">
-        <a *ngIf="!jwtData?.googleId; else profile" [href]="googleAuthUrl" class="login-button" mat-raised-button color="primary">
-            <img
+    <ng-container>
+        <ng-container *ngIf="!(jwtData$ | ngrxPush); else profile">
+            <button (click)="login()" class="login-button" mat-raised-button color="primary" [disabled]="loading$ | ngrxPush">
+                <img
                     class="rounded login-picture"
                     src="assets/g-logo.png"
                     alt="Login with google"
-            />
-
-            Login
-        </a>
-        <ng-template #profile>
-            <a href="#" class="profile-button" mat-raised-button color="primary">
-                {{jwtData?.firstName}} {{jwtData?.lastName}}
-
-                <img
-                    class="rounded profile-picture"
-                    [src]="jwtData?.picture"
-                    alt="User profile"
                 />
-            </a>
+
+                Login
+            </button>
+        </ng-container>
+
+        <ng-template #profile>
+            <ng-container *ngIf="jwtData$ | ngrxPush as jwtData">
+                <button class="profile-button" mat-raised-button color="primary">
+                    {{jwtData?.firstName}} {{jwtData?.lastName}}
+
+                    <img
+                            class="rounded profile-picture"
+                            [src]="jwtData?.picture"
+                            alt="User profile"
+                    />
+                </button>
+                <button (click)="logout()" class="logout-button" mat-raised-button color="warn">Logout</button>
+            </ng-container>
 
         </ng-template>
     </ng-container>
-
 </mat-toolbar>
 
 <router-outlet></router-outlet>

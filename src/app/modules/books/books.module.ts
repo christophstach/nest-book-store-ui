@@ -15,7 +15,4 @@ import { SharedModule } from '../shared/shared.module';
   ]
 })
 export class BooksModule {
-  constructor() {
-   console.log('BooksModule');
-  }
 }

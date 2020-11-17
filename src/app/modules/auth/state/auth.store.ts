@@ -10,20 +10,14 @@ export interface JwtData {
 }
 
 export interface AuthState {
-  jwt: string;
-  jwtData: JwtData
+  jwt: string | null;
+  jwtData: JwtData | null
 }
 
 export function createInitialState(): AuthState {
   return {
-    jwt: '',
-    jwtData: {
-      googleId: '',
-      firstName: '',
-      lastName: '',
-      picture: ''
-    }
-
+    jwt: null,
+    jwtData: null
   };
 }
 
