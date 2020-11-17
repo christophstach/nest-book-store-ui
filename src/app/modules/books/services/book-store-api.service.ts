@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CreateBookDto } from '../dto/create-book.dto';
-import { UpdateBookDto } from '../dto/update-book.dto';
+import { CreateBookDto } from '../dtos/create-book.dto';
+import { UpdateBookDto } from '../dtos/update-book.dto';
 import { Book } from '../entities/book.entity';
+import { delay } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class BookStoreApiService {
@@ -17,7 +18,7 @@ export class BookStoreApiService {
   }
 
   findAll() {
-    return this.http.get<Book[]>(this.endpoint);
+    return this.http.get<Book[]>(this.endpoint).pipe(delay(1000));
   }
 
   findOne(id: number) {

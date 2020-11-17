@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { BooksQuery } from 'src/app/state/books.query';
-import { BooksService } from 'src/app/state/books.service';
+import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { AuthQuery } from '../../modules/auth/state/auth.query';
+import { Observable } from 'rxjs';
+import { JwtData } from '../../modules/auth/state/auth.store';
 
 @Component({
   selector: 'app-root',
@@ -8,20 +10,16 @@ import { BooksService } from 'src/app/state/books.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  books$ = this.booksQuery.selectAll();
-  loading$ = this.booksQuery.selectLoading();
+  googleAuthUrl: string;
+  jwtData$: Observable<JwtData>
 
   constructor(
-    private booksQuery: BooksQuery,
-    private booksService: BooksService,
-    private cdr: ChangeDetectorRef
-  ) { }
-
-  ngOnInit() {
-    this.booksService.findAll().subscribe();
+      private authQuery: AuthQuery
+  ) {
+    this.googleAuthUrl = environment.googleAuthUrl;
+    this.jwtData$ = this.authQuery.jwtData$;
   }
 
-  detectChanges() {
-    setTimeout(() => this.cdr.detectChanges());
+  ngOnInit() {
   }
 }

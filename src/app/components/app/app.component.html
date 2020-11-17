@@ -1,33 +1,24 @@
-<div class="p-3">
-    <div class="container mx-auto bg-white rounded p-3">
-        <ng-container *ngIf="!(loading$ | ngrxPush); else booksLoading">
-            <ng-container *ngIf="books$ | ngrxPush as books; else booksLoading">
-                <div class=" grid gap-3 grid-cols-1 py-3 md:grid-cols-2 lg:grid-cols-3">
-                    <div *ngFor="let book of books" class="shadow-xl rounded-xl p-6 flex gap-3 flex-col lg:flex-row">
-                        <svg class="flex-shrink-0 h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                        </svg>
-                        <div>
-                            <h4 class="text-xl">{{book.title}}</h4>
-                            <div class="text-sm">{{book.author}} &middot; {{ book.publisher }} ({{ book.publicationYear }})</div>
-                            <div class="text-sm text-gray-500">ISBN: {{book.isbn}}</div>
-                        </div>
-                    </div>
-                </div>
+<mat-toolbar color="primary" class="mat-elevation-z8">
+    <span>Bookstore</span>
+    <span class="spacer"></span>
+    <ng-container *ngrxLet="jwtData$; let jwtData">
+        <a *ngIf="!jwtData?.googleId; else profile" [href]="googleAuthUrl" mat-raised-button color="primary">
+            <mat-icon svgIcon="google"></mat-icon>
+            Login
+        </a>
+        <ng-template #profile>
+            <a href="#">
+                <img
+                        matRipple
+                        class="rounded profile-picture"
+                        [src]="jwtData?.picture"
+                        alt="User profile"
+                />
+            </a>
 
-            </ng-container>
-
-            <ng-template #emptyList>
-                <div>No books in list!</div>
-            </ng-template>
-        </ng-container>
-
-        <ng-template #booksLoading>
-            <div class="flex justify-center items-center">
-                <div class="flex justify-center items-center">
-                    <div class="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
-                </div>
-            </div>
         </ng-template>
-    </div>
-</div>
+    </ng-container>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
