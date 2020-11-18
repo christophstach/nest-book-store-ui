@@ -17,6 +17,6 @@ export class AuthApiService {
 
 
   loginWithGoogle() {
-    this.document.location.href = `${this.endpoint}/google/auth`;
+    this.document.location.href = `${this.endpoint}/auth/google`;
   }
 }
