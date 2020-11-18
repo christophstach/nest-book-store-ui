@@ -10,7 +10,7 @@ export class BooksService {
 
   constructor(
     private booksStore: BooksStore,
-    private bookStoreApiService: BookStoreApiService
+    private bookStoreApiService: BookStoreApiService,
   ) { }
 
   findAll() {
@@ -22,9 +22,5 @@ export class BooksService {
         this.booksStore.setLoading(false);
       }),
     )
-  }
-
-  addToCart(book: Book) {
-
   }
 }

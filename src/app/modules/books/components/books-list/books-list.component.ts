@@ -4,7 +4,10 @@ import { BooksService } from '../../state/books.service';
 import { Book } from '../../entities/book.entity';
 import { AuthQuery } from '../../../auth/state/auth.query';
 import { Observable, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { ShoppingCartApiService } from '../../../shopping-cart/services/shopping-cart-api.service';
+import { ShoppingCartItemType } from '../../../shopping-cart/entities/shopping-cart-item.entity';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-books-list',
@@ -23,6 +26,8 @@ export class BooksListComponent implements OnInit, OnDestroy {
       private booksQuery: BooksQuery,
       private booksService: BooksService,
       private authQuery: AuthQuery,
+      private shoppingCartApiService: ShoppingCartApiService,
+      private snackBar: MatSnackBar
   ) {
     this.subscription = this.booksService.findAll().subscribe();
 
@@ -30,9 +35,9 @@ export class BooksListComponent implements OnInit, OnDestroy {
     this.displayedColumns$ = this.jwtData$.pipe(
         map((jwtData) => {
           if (jwtData) {
-            return ['id', 'title', 'author', 'isbn', 'publisher', 'publicationYear', 'addToCart'];
+            return ['title', 'author', 'isbn', 'publisher', 'addToCart'];
           } else {
-            return ['id', 'title', 'author', 'isbn', 'publisher', 'publicationYear'];
+            return ['title', 'author', 'isbn', 'publisher'];
           }
         })
     )
@@ -48,7 +53,14 @@ export class BooksListComponent implements OnInit, OnDestroy {
 
 
 
-  addToCart(book: Book) {
-    this.booksService.addToCart(book);
+  addToShoppingCart(book: Book) {
+    this.shoppingCartApiService.addToShoppingCart({
+      title: book.title,
+      referenceUrl: '',
+      referenceId: book.id,
+      type: ShoppingCartItemType.Book
+    }).subscribe(() => {
+      this.snackBar.open('Successfully added book to cart');
+    });
   }
 }

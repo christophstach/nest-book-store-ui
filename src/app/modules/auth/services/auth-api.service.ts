@@ -15,7 +15,6 @@ export class AuthApiService {
       @Inject(DOCUMENT) private document: Document
   ) { }
 
-
   loginWithGoogle() {
     this.document.location.href = `${this.endpoint}/auth/google`;
   }
