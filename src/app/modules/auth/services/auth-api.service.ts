@@ -1,18 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 import { map } from 'rxjs/operators';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthApiService {
+  private endpoint = environment.authEndpoint
 
-  constructor(private http: HttpClient) { }
+  constructor(
+      private http: HttpClient,
+      @Inject(DOCUMENT) private document: Document
+  ) { }
 
-  loginByToken(tokenId: string) {
-    return this.http.post<{ jwt: string }>(environment.tokenLoginUrl, { tokenId }).pipe(
-        map(response => response.jwt)
-    );
+
+  loginWithGoogle() {
+    this.document.location.href = `${this.endpoint}/google/auth`;
   }
 }

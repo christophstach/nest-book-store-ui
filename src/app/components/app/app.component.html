@@ -16,6 +16,10 @@
 
         <ng-template #profile>
             <ng-container *ngIf="jwtData$ | ngrxPush as jwtData">
+                <button (click)="shoppingCart()" class="shopping-cart-button" mat-raised-button color="primary">
+                    <mat-icon svgIcon="cart"></mat-icon>
+                </button>
+
                 <button class="profile-button" mat-raised-button color="primary">
                     <img
                             class="rounded profile-picture"

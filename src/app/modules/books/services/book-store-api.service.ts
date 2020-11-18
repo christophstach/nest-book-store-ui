@@ -3,33 +3,33 @@ import { Injectable } from '@angular/core';
 import { CreateBookDto } from '../dtos/create-book.dto';
 import { UpdateBookDto } from '../dtos/update-book.dto';
 import { Book } from '../entities/book.entity';
-import { delay } from 'rxjs/operators';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class BookStoreApiService {
-  private endpoint = 'https://nest-book-store-inventory.herokuapp.com/books';
+  private endpoint = environment.inventoryEndpoint;
 
   constructor(private http: HttpClient) {
 
   }
 
   create(createBookDto: CreateBookDto) {
-    return this.http.post(this.endpoint, createBookDto);
+    return this.http.post(`${this.endpoint}/books`, createBookDto);
   }
 
   findAll() {
-    return this.http.get<Book[]>(this.endpoint).pipe(delay(1000));
+    return this.http.get<Book[]>(`${this.endpoint}/books`);
   }
 
   findOne(id: number) {
-    return this.http.get<Book>(`${this.endpoint}/{id}`);
+    return this.http.get<Book>(`${this.endpoint}/books/${id}`);
   }
 
   update(id: number, updateBookDto: UpdateBookDto) {
-    return this.http.put(`${this.endpoint}/{id}`, updateBookDto);
+    return this.http.put(`${this.endpoint}/books/${id}`, updateBookDto);
   }
 
   remove(id: number) {
-    return this.http.delete(`${this.endpoint}/{id}`);
+    return this.http.delete(`${this.endpoint}/books/${id}`);
   }
 }

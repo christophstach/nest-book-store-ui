@@ -1,9 +1,8 @@
-import { Inject, Injectable } from '@angular/core';
-import { AuthState, AuthStore, JwtData } from './auth.store';
+import { Injectable } from '@angular/core';
+import { AuthStore, JwtData } from './auth.store';
 
 import jwtDecode from 'jwt-decode';
-import { environment } from '../../../../environments/environment';
-import { DOCUMENT } from '@angular/common';
+import { AuthApiService } from '../services/auth-api.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -11,7 +10,7 @@ export class AuthService {
 
   constructor(
     private authStore: AuthStore,
-    @Inject(DOCUMENT) private document: Document
+    private authApiService: AuthApiService
   ) { }
 
   persistJwt(jwt: string) {
@@ -32,7 +31,7 @@ export class AuthService {
 
   loginWithGoogle() {
     this.authStore.setLoading(true);
-    this.document.location.href = environment.googleAuthUrl;
+    this.authApiService.loginWithGoogle();
   }
 
   logout() {

@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  googleAuthUrl: 'http://localhost:3333/auth/google'
+  authEndpoint: 'http://localhost:3333',
+  inventoryEndpoint: 'http://localhost:3000',
+  shoppingCartEndpoint: 'http://localhost:3334'
 };
 
 /*

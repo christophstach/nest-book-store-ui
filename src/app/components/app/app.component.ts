@@ -35,4 +35,8 @@ export class AppComponent implements OnInit {
   logout() {
     this.router.navigate(['auth/logout']);
   }
+
+  shoppingCart() {
+    this.router.navigate(['cart']);
+  }
 }
