@@ -3,6 +3,7 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthQuery } from '../../auth/state/auth.query';
 import { AddToShoppingCartDto } from '../dtos/add-to-shopping-cart.dto';
+import { ShoppingCartItem } from '../entities/shopping-cart-item.entity';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ShoppingCartApiService {
   ) { }
 
   findAll() {
-    return this.http.get(
+    return this.http.get<ShoppingCartItem[]>(
       `${this.endpoint}/shopping-cart`,
       {
         headers: new HttpHeaders({
@@ -36,5 +37,16 @@ export class ShoppingCartApiService {
         })
       }
     );
+  }
+
+  removeFromShoppingCart(id: string) {
+      return this.http.delete(
+          `${this.endpoint}/shopping-cart/${id}`,
+          {
+              headers: new HttpHeaders({
+                  Authorization: `Bearer ${this.authQuery.getValue().jwt}`
+              })
+          }
+      );
   }
 }

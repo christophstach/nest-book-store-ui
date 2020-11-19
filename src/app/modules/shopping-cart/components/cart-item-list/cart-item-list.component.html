@@ -1,7 +1,46 @@
 
 <div class="container">
-    <div class="block mat-elevation-z8">
-        <pre>{{items$ | ngrxPush | json}}</pre>
-    </div>
+    <table mat-table *ngIf="!(loading$ | ngrxPush); else itemsLoading" [dataSource]="items$ | ngrxPush" class="mat-elevation-z8">
+        <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef> Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="removeFromCart">
+            <th class="shrink" mat-header-cell *matHeaderCellDef></th>
+            <td class="shrink" mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="removeFromCart(element)">
+                    <mat-icon svgIcon="cart-off"></mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="footer">
+            <td mat-footer-cell *matFooterCellDef colspan="9999">
+                <strong>Currently are {{(items$ | ngrxPush).length}} in the shopping cart</strong>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns$ | ngrxPush"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns$ | ngrxPush;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9999">
+                <div class="empty-message">No items found</div>
+            </td>
+        </tr>
+
+        <tr mat-footer-row *matFooterRowDef="['footer']"></tr>
+    </table>
+
+    <ng-template #itemsLoading>
+        <div class="block mat-elevation-z8">
+            <mat-spinner></mat-spinner>
+        </div>
+    </ng-template>
 </div>
 

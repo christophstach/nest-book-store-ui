@@ -60,7 +60,7 @@ export class BooksListComponent implements OnInit, OnDestroy {
       referenceId: book.id,
       type: ShoppingCartItemType.Book
     }).subscribe(() => {
-      this.snackBar.open('Successfully added book to cart');
+      this.snackBar.open('Successfully added book to cart', '', { duration: 5000 });
     });
   }
 }
