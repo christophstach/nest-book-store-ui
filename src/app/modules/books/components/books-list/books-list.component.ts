@@ -35,9 +35,9 @@ export class BooksListComponent implements OnInit, OnDestroy {
     this.displayedColumns$ = this.jwtData$.pipe(
         map((jwtData) => {
           if (jwtData) {
-            return ['title', 'author', 'isbn', 'publisher', 'addToCart'];
+            return ['title', 'author', 'publisher', 'addToCart'];
           } else {
-            return ['title', 'author', 'isbn', 'publisher'];
+            return ['title', 'author', 'publisher'];
           }
         })
     )
