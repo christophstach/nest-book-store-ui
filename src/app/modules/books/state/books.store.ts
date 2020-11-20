@@ -9,6 +9,6 @@ export interface BooksState extends EntityState<Book, string>, ActiveState { }
 @StoreConfig({ name: 'books', producerFn: produce })
 export class BooksStore extends EntityStore<BooksState> {
   constructor() {
-    super() ;
+    super({ loading: false }) ;
   }
 }

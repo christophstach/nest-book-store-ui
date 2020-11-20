@@ -10,12 +10,14 @@ export interface JwtData {
 }
 
 export interface AuthState {
+  loading: boolean;
   jwt: string | null;
   jwtData: JwtData | null
 }
 
 export function createInitialState(): AuthState {
   return {
+    loading: false,
     jwt: null,
     jwtData: null
   };

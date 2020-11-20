@@ -9,6 +9,6 @@ export interface ShoppingCartState extends EntityState<ShoppingCartItem, string>
 @StoreConfig({ name: 'shoppingCart', producerFn: produce })
 export class ShoppingCartStore extends EntityStore<ShoppingCartState> {
   constructor() {
-    super() ;
+    super({ loading: false }) ;
   }
 }
