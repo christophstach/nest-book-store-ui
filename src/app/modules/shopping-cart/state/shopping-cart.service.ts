@@ -28,10 +28,11 @@ export class ShoppingCartService {
 
   remove(item: ShoppingCartItem) {
     this.shoppingCartStore.setLoading(true);
+    
     return this.shoppingCartApiService.removeFromShoppingCart(item.id).pipe(
         tap(() => {
             this.shoppingCartStore.remove(item.id)
-            this.shoppingCartStore.setLoading(true);
+            this.shoppingCartStore.setLoading(false);
         })
     );
   }
