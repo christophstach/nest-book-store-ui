@@ -29,9 +29,6 @@ export class BooksListComponent implements OnInit, OnDestroy {
       private shoppingCartApiService: ShoppingCartApiService,
       private snackBar: MatSnackBar
   ) {
-    this.subscription = this.booksService.findAll().subscribe();
-
-
     this.displayedColumns$ = this.jwtData$.pipe(
         map((jwtData) => {
           if (jwtData) {
@@ -44,23 +41,23 @@ export class BooksListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
+    this.subscription = this.booksService.findAll().subscribe();
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-
-
   addToShoppingCart(book: Book) {
-    this.shoppingCartApiService.addToShoppingCart({
-      title: book.title,
-      referenceUrl: '',
-      referenceId: book.id,
-      type: ShoppingCartItemType.Book
-    }).subscribe(() => {
-      this.snackBar.open('Successfully added book to cart', '', { duration: 5000 });
-    });
+    this.subscription.add(
+      this.shoppingCartApiService.addToShoppingCart({
+        title: book.title,
+        referenceUrl: '',
+        referenceId: book.id,
+        type: ShoppingCartItemType.Book
+      }).subscribe(() => {
+        this.snackBar.open('Successfully added book to cart', '', { duration: 5000 });
+      })
+    );
   }
 }

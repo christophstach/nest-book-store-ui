@@ -11,7 +11,9 @@ export class BooksService {
   constructor(
     private booksStore: BooksStore,
     private bookStoreApiService: BookStoreApiService,
-  ) { }
+  ) {
+      this.booksStore.setLoading(false);
+  }
 
   findAll() {
     this.booksStore.setLoading(true);

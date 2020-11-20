@@ -3,7 +3,7 @@ import produce from 'immer';
 import { ActiveState, EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 import { Book } from '../entities/book.entity';
 
-export interface BooksState extends EntityState<Book, number>, ActiveState { }
+export interface BooksState extends EntityState<Book, string>, ActiveState { }
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'books', producerFn: produce })

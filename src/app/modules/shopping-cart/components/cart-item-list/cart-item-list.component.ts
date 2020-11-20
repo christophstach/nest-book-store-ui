@@ -1,44 +1,42 @@
-import { Component, OnInit } from '@angular/core';
-import { ShoppingCartApiService } from '../../services/shopping-cart-api.service';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { of, Subscription } from 'rxjs';
 import { ShoppingCartItem } from '../../entities/shopping-cart-item.entity';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ShoppingCartService } from '../../state/shopping-cart.service';
+import { ShoppingCartQuery } from '../../state/shopping-cart.query';
 
 @Component({
   selector: 'app-cart-item-list',
   templateUrl: './cart-item-list.component.html',
   styleUrls: ['./cart-item-list.component.scss']
 })
-export class CartItemListComponent implements OnInit {
-  loading$: BehaviorSubject<boolean>;
-  displayedColumns$: BehaviorSubject<string[]>;
-  items$: BehaviorSubject<ShoppingCartItem[]>;
+export class CartItemListComponent implements OnInit, OnDestroy {
+  subscription: Subscription;
+
+  displayedColumns$ = of(['type', 'title', 'removeFromCart']);
+  loading$ = this.shoppingCartQuery.selectLoading();
+  items$ = this.shoppingCartQuery.selectAll();
 
   constructor(
-      private shoppingCartApiService: ShoppingCartApiService,
+      private shoppingCartService: ShoppingCartService,
+      private shoppingCartQuery: ShoppingCartQuery,
       private snackBar: MatSnackBar
   ) {
-    this.displayedColumns$ = new BehaviorSubject<string[]>(['type', 'title', 'removeFromCart']);
-    this.loading$ = new BehaviorSubject<boolean>(true);
-    this.items$ = new BehaviorSubject([] as ShoppingCartItem[]);
-
-    this.shoppingCartApiService.findAll().pipe(
-      tap(items => {
-        this.loading$.next(false);
-        this.items$.next(items);
-      })
-    ).subscribe();
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.subscription = this.shoppingCartService.findAll().subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   removeFromCart(item: ShoppingCartItem) {
-    this.shoppingCartApiService.removeFromShoppingCart(item.id).subscribe(() => {
-      this.items$.next(this.items$.value.filter(i => i.id != item.id));
-      this.snackBar.open('Successfully removed item to cart', '', { duration: 5000 });
-    });
+    this.subscription.add(
+      this.shoppingCartService.remove(item).subscribe(() => {
+        this.snackBar.open('Successfully removed item to cart', '', { duration: 5000 });
+      })
+    );
   }
-
 }
