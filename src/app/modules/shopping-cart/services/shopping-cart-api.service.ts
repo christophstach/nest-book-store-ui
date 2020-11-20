@@ -40,13 +40,13 @@ export class ShoppingCartApiService {
   }
 
   removeFromShoppingCart(id: string) {
-      return this.http.delete(
-          `${this.endpoint}/shopping-cart/${id}`,
+    return this.http.delete(
+        `${this.endpoint}/shopping-cart/${id}`,
           {
               headers: new HttpHeaders({
                   Authorization: `Bearer ${this.authQuery.getValue().jwt}`
               })
           }
-      );
+    );
   }
 }

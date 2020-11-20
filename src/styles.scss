@@ -88,7 +88,8 @@ button.logout-button {
 
 
 table {
-    td.shrink {
+    .mat-column-addToCart,
+    .mat-column-removeFromCart {
         width: 0;
     }
 }
