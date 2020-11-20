@@ -39,13 +39,13 @@ export class AuthService {
   }
 
   logout() {
+    this.authStore.setLoading(true);
     this.authStore.update({
       jwtData: null,
       jwt: null
     });
 
     this.persistStorage.clearStore();
-
     this.authStore.setLoading(false);
   }
 }
