@@ -18,6 +18,7 @@ export class AuthService {
   }
 
   persistJwt(jwt: string) {
+    this.authStore.setLoading(true);
     const { picture, firstName, lastName, googleId } = jwtDecode(jwt) as JwtData;
 
     this.authStore.update({
