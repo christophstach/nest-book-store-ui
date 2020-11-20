@@ -3,6 +3,7 @@ import { ShoppingCartStore } from './shopping-cart.store';
 import { catchError, tap } from 'rxjs/operators';
 import { ShoppingCartApiService } from '../services/shopping-cart-api.service';
 import { ShoppingCartItem } from '../entities/shopping-cart-item.entity';
+import { AddToShoppingCartDto } from '../dtos/add-to-shopping-cart.dto';
 
 
 @Injectable({ providedIn: 'root' })
@@ -28,12 +29,24 @@ export class ShoppingCartService {
 
   remove(item: ShoppingCartItem) {
     this.shoppingCartStore.setLoading(true);
-    
-    return this.shoppingCartApiService.removeFromShoppingCart(item.id).pipe(
+
+    return this.shoppingCartApiService.remove(item.id).pipe(
         tap(() => {
             this.shoppingCartStore.remove(item.id)
             this.shoppingCartStore.setLoading(false);
         })
     );
+  }
+
+  add(itemDto: AddToShoppingCartDto) {
+      this.shoppingCartStore.setLoading(true);
+      const { referenceId, referenceUrl, type, title } = itemDto;
+
+      return this.shoppingCartApiService.add(itemDto).pipe(
+          tap((item) => {
+              this.shoppingCartStore.add(item);
+              this.shoppingCartStore.setLoading(false);
+          })
+      );
   }
 }

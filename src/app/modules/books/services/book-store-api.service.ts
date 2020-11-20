@@ -14,7 +14,7 @@ export class BookStoreApiService {
   }
 
   create(createBookDto: CreateBookDto) {
-    return this.http.post(`${this.endpoint}/books`, createBookDto);
+    return this.http.post<Book>(`${this.endpoint}/books`, createBookDto);
   }
 
   findAll() {
@@ -26,10 +26,10 @@ export class BookStoreApiService {
   }
 
   update(id: number, updateBookDto: UpdateBookDto) {
-    return this.http.put(`${this.endpoint}/books/${id}`, updateBookDto);
+    return this.http.put<Book>(`${this.endpoint}/books/${id}`, updateBookDto);
   }
 
   remove(id: number) {
-    return this.http.delete(`${this.endpoint}/books/${id}`);
+    return this.http.delete<Book>(`${this.endpoint}/books/${id}`);
   }
 }

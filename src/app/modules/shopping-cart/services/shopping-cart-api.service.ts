@@ -27,8 +27,8 @@ export class ShoppingCartApiService {
     );
   }
 
-  addToShoppingCart(addToShoppingCartDto: AddToShoppingCartDto) {
-    return this.http.post(
+  add(addToShoppingCartDto: AddToShoppingCartDto) {
+    return this.http.post<ShoppingCartItem>(
       `${this.endpoint}/shopping-cart`,
       addToShoppingCartDto,
       {
@@ -39,8 +39,8 @@ export class ShoppingCartApiService {
     );
   }
 
-  removeFromShoppingCart(id: string) {
-    return this.http.delete(
+  remove(id: string) {
+    return this.http.delete<ShoppingCartItem>(
         `${this.endpoint}/shopping-cart/${id}`,
           {
               headers: new HttpHeaders({

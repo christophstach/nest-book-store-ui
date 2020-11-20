@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { ShoppingCartApiService } from '../../../shopping-cart/services/shopping-cart-api.service';
 import { ShoppingCartItemType } from '../../../shopping-cart/entities/shopping-cart-item.entity';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ShoppingCartService } from '../../../shopping-cart/state/shopping-cart.service';
 
 @Component({
   selector: 'app-books-list',
@@ -25,7 +26,7 @@ export class BooksListComponent implements OnInit {
       private booksQuery: BooksQuery,
       private booksService: BooksService,
       private authQuery: AuthQuery,
-      private shoppingCartApiService: ShoppingCartApiService,
+      private shoppingCartService: ShoppingCartService,
       private snackBar: MatSnackBar
   ) {
     this.displayedColumns$ = this.jwtData$.pipe(
@@ -44,7 +45,7 @@ export class BooksListComponent implements OnInit {
   }
 
   addToShoppingCart(book: Book) {
-      this.shoppingCartApiService.addToShoppingCart({
+      this.shoppingCartService.add({
           title: book.title,
           referenceUrl: '',
           referenceId: book.id,
