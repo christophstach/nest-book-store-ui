@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ShoppingCartStore } from './shopping-cart.store';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { ShoppingCartApiService } from '../services/shopping-cart-api.service';
 import { ShoppingCartItem } from '../entities/shopping-cart-item.entity';
 
@@ -27,6 +27,10 @@ export class ShoppingCartService {
   }
 
   remove(item: ShoppingCartItem) {
-      return this.shoppingCartApiService.removeFromShoppingCart(item.id);
+    return this.shoppingCartApiService.removeFromShoppingCart(item.id).pipe(
+        tap(() => {
+            this.shoppingCartStore.remove(item.id)
+        })
+    );
   }
 }
