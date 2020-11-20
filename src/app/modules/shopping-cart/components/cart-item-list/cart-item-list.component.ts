@@ -11,21 +11,23 @@ import { ShoppingCartQuery } from '../../state/shopping-cart.query';
   styleUrls: ['./cart-item-list.component.scss']
 })
 export class CartItemListComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+  subscription = Subscription.EMPTY;
 
   displayedColumns$ = of(['type', 'title', 'removeFromCart']);
   loading$ = this.shoppingCartQuery.selectLoading();
   items$ = this.shoppingCartQuery.selectAll();
 
   constructor(
-      private shoppingCartService: ShoppingCartService,
-      private shoppingCartQuery: ShoppingCartQuery,
-      private snackBar: MatSnackBar
+    private shoppingCartService: ShoppingCartService,
+    private shoppingCartQuery: ShoppingCartQuery,
+    private snackBar: MatSnackBar
   ) {
   }
 
   ngOnInit() {
-    this.subscription = this.shoppingCartService.findAll().subscribe();
+    this.subscription = this.subscription.add(
+      this.shoppingCartService.findAll().subscribe()
+    );
   }
 
   ngOnDestroy() {

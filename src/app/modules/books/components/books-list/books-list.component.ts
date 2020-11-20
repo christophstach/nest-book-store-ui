@@ -15,7 +15,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./books-list.component.scss']
 })
 export class BooksListComponent implements OnInit, OnDestroy {
-  subscription: Subscription;
+  subscription = Subscription.EMPTY;
+
   displayedColumns$: Observable<string[]>;
 
   books$ = this.booksQuery.selectAll();
@@ -41,7 +42,9 @@ export class BooksListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.booksService.findAll().subscribe();
+    this.subscription = this.subscription.add(
+        this.booksService.findAll().subscribe()
+    );
   }
 
   ngOnDestroy() {
