@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule, MatSpinner } from '@angular/material/progress-spinner';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -28,6 +29,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatRippleModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   exports: [
     HttpClientModule,
@@ -41,6 +43,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatRippleModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ]
 })
 export class SharedModule { }
