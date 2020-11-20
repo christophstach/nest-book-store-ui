@@ -14,9 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './books-list.component.html',
   styleUrls: ['./books-list.component.scss']
 })
-export class BooksListComponent implements OnInit, OnDestroy {
-  subscription = Subscription.EMPTY;
-
+export class BooksListComponent implements OnInit {
   displayedColumns$: Observable<string[]>;
 
   books$ = this.booksQuery.selectAll();
@@ -42,25 +40,17 @@ export class BooksListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.subscription.add(
-        this.booksService.findAll().subscribe()
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.booksService.findAll().subscribe();
   }
 
   addToShoppingCart(book: Book) {
-    this.subscription.add(
       this.shoppingCartApiService.addToShoppingCart({
-        title: book.title,
-        referenceUrl: '',
-        referenceId: book.id,
-        type: ShoppingCartItemType.Book
+          title: book.title,
+          referenceUrl: '',
+          referenceId: book.id,
+          type: ShoppingCartItemType.Book
       }).subscribe(() => {
-        this.snackBar.open('Successfully added book to cart', '', { duration: 5000 });
+          this.snackBar.open('Successfully added book to cart', '', {duration: 5000});
       })
-    );
   }
 }

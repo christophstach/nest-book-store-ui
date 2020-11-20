@@ -10,9 +10,7 @@ import { ShoppingCartQuery } from '../../state/shopping-cart.query';
   templateUrl: './cart-item-list.component.html',
   styleUrls: ['./cart-item-list.component.scss']
 })
-export class CartItemListComponent implements OnInit, OnDestroy {
-  subscription = Subscription.EMPTY;
-
+export class CartItemListComponent implements OnInit {
   displayedColumns$ = of(['type', 'title', 'removeFromCart']);
   loading$ = this.shoppingCartQuery.selectLoading();
   items$ = this.shoppingCartQuery.selectAll();
@@ -25,20 +23,12 @@ export class CartItemListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription = this.subscription.add(
-      this.shoppingCartService.findAll().subscribe()
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.shoppingCartService.findAll().subscribe();
   }
 
   removeFromCart(item: ShoppingCartItem) {
-    this.subscription.add(
-      this.shoppingCartService.remove(item).subscribe(() => {
-        this.snackBar.open('Successfully removed item to cart', '', { duration: 5000 });
-      })
-    );
+    this.shoppingCartService.remove(item).subscribe(() => {
+      this.snackBar.open('Successfully removed item to cart', '', { duration: 5000 });
+    });
   }
 }
